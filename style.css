@@ -1,0 +1,327 @@
+/* === Box Sizing Reset === */
+* {
+    box-sizing: border-box;
+}
+
+/* === Base Styles === */
+body {
+    margin: 0;
+    font-family: ui-sans-serif, -apple-system, system-ui, Segoe UI, Helvetica, Apple Color Emoji, Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #1a1a1a;
+    padding-top: 99px;
+}
+
+main {
+    min-height: calc(100vh - 99px);
+}
+
+/* === Container Utility === */
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+    color: inherit;
+}
+
+/* === Navbar === */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 30px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+/* === Footer === */
+footer {
+    flex-shrink: 0;
+    color: #666;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    margin-top: 20px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+    color: inherit;
+}
+
+/* === Sections (General) === */
+section {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* === Task Controls Section === */
+.task-controls {
+    background-color: #f0f0f0;
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem auto;
+    max-width: 600px;
+    color: #222;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.task-controls h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+}
+
+/* === Form Elements === */
+.form-group {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+}
+
+/* === Form Inputs & Select === */
+input[type="text"],
+input[type="date"],
+textarea,
+select {
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    color: #111;
+    font-size: 1rem;
+    transition: border 0.2s, background-color 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #4db8ff;
+    outline: none;
+    background-color: #f5faff;
+}
+
+/* === Buttons === */
+.primary-btn {
+    background-color: #4db8ff;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.primary-btn:hover {
+    background-color: #33aaff;
+}
+
+/* === Responsive Styles === */
+@media (max-width: 600px) {
+    .task-controls {
+        padding: 1.5rem;
+    }
+
+    .primary-btn {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+}
+
+/* === Dark Mode === */
+.dark-mode body {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .navbar {
+    background-color: #212121;
+    border-bottom: 1px solid #444;
+}
+
+.dark-mode .container,
+.dark-mode footer,
+.dark-mode .task-controls {
+    color: #f1f1f1;
+}
+
+.dark-mode section,
+.dark-mode .task-controls {
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .form-group label {
+    color: #c9d1d9;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+    background-color: #1e1e1e;
+    border-color: #444;
+    color: #fff;
+}
+
+.dark-mode input:focus,
+.dark-mode textarea:focus,
+.dark-mode select:focus {
+    background-color: #2a2a2a;
+    border-color: #4db8ff;
+}
+
+.dark-mode footer p {
+    color: #c9d1d9;
+}
+
+.dark-mode .primary-btn {
+    background-color: #2a8fd6;
+}
+
+.dark-mode .primary-btn:hover {
+    background-color: #1a7fc6;
+}
+
+/* === Task List Styles === */
+.task-list {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+    margin: 2rem auto;
+}
+
+.task-item {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.task-item.completed {
+    background-color: #f0f0f0;
+    text-decoration: line-through;
+}
+
+.task-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.task-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.task-meta {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.priority-badge {
+    background-color: #e0e0e0;
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+.task-description {
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+.task-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 1.5rem;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.edit-btn {
+    background-color: #ffcc00;
+    color: #fff;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+.edit-btn:hover {
+    background-color: #e6b800;
+}
+
+.delete-btn:hover {
+    background-color: #ff1a1a;
+}
+
+/* === Dark Mode Task List === */
+.dark-mode .task-item {
+    background-color: #2d2d2d;
+    color: #fff;
+}
+
+.dark-mode .task-item.completed {
+    background-color: #333;
+}
+
+.dark-mode .task-header .task-title {
+    color: #fff;
+}
+
+.dark-mode .task-description {
+    color: #ccc;
+}
+
+.dark-mode .priority-badge {
+    background-color: #444;
+    color: #fff;
+}
