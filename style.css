@@ -1,28 +1,26 @@
-/* === Box Sizing Reset === */
+/* === Reset e Base === */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* === Base Styles === */
 body {
-    margin: 0;
-    font-family: ui-sans-serif, -apple-system, system-ui, Segoe UI, Helvetica, Apple Color Emoji, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background-color: #f9f9f9;
     color: #1a1a1a;
-    padding-top: 99px;
+    padding-top: 80px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 main {
-    min-height: calc(100vh - 99px);
+    min-height: calc(100vh - 80px);
 }
 
-/* === Container Utility === */
 .container {
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 20px;
-    text-align: center;
-    color: inherit;
 }
 
 /* === Navbar === */
@@ -30,60 +28,67 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 30px;
-    width: 100%;
+    padding: 1rem 2rem;
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
     z-index: 10;
     background-color: #ffffff;
     border-bottom: 1px solid #ddd;
 }
 
-/* === Footer === */
-footer {
-    flex-shrink: 0;
-    color: #666;
-    text-align: center;
-    padding: 20px 0;
-    position: relative;
-    margin-top: 20px;
-}
-
-footer p {
-    margin: 0;
-    font-size: 14px;
-    color: inherit;
-}
-
-/* === Sections (General) === */
-section {
-    background-color: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* === Task Controls Section === */
-.task-controls {
-    background-color: #f0f0f0;
-    padding: 2rem;
-    border-radius: 12px;
-    margin: 2rem auto;
-    max-width: 600px;
-    color: #222;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: left;
-}
-
-.task-controls h2 {
+.navbar h1 {
     font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: #1a1a1a;
 }
 
-/* === Form Elements === */
+#themeToggleBtn {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: inherit;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+#themeToggleBtn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* === Layout Principal === */
+.task-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    align-items: start;
+}
+
+/* === Seções (cards) === */
+.task-controls,
+.task-list {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #e1e4e8;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+/* === Títulos === */
+.task-controls h2,
+.task-list h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+/* === Formulário === */
 .form-group {
     margin-bottom: 1.2rem;
     display: flex;
@@ -105,7 +110,6 @@ section {
     white-space: nowrap;
 }
 
-/* === Form Inputs & Select === */
 input[type="text"],
 input[type="date"],
 textarea,
@@ -116,49 +120,243 @@ select {
     background-color: #ffffff;
     color: #111;
     font-size: 1rem;
-    transition: border 0.2s, background-color 0.2s;
+    width: 100%;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+    border-color: #4db8ff;
+    box-shadow: 0 0 0 3px rgba(77, 184, 255, 0.3);
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-    border-color: #4db8ff;
+    border-color: white;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
     outline: none;
-    background-color: #f5faff;
 }
 
-/* === Buttons === */
 .primary-btn {
-    background-color: #4db8ff;
-    color: #fff;
-    padding: 0.75rem 1.5rem;
+    background-color: #2ea44f;
     border: none;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
     border-radius: 8px;
-    font-size: 1rem;
     cursor: pointer;
-    transition: background 0.3s;
-    margin-top: 1rem;
     width: 100%;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .primary-btn:hover {
-    background-color: #33aaff;
+    background-color: #22863a;
+    box-shadow: 0 0 8px rgba(46, 164, 79, 0.4);
 }
 
-/* === Responsive Styles === */
-@media (max-width: 600px) {
-    .task-controls {
-        padding: 1.5rem;
-    }
+/* === Lista de Tarefas === */
+#task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 
-    .primary-btn {
-        font-size: 1rem;
-        padding: 0.75rem;
-    }
+.task-item {
+    background-color: #ffffff;
+    padding: 1.25rem;
+    border-radius: 10px;
+    border-left: 4px solid #ddd;
+    border: 1px solid #e1e4e8;
+    transition: all 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.task-item:hover {
+    border-color: #4db8ff;
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 3px rgba(77, 184, 255, 0.3);
+}
+
+.task-item:focus-within {
+    border-color: white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    outline: none;
+}
+
+/* Cabeçalho da Tarefa */
+.task-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.complete-checkbox {
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+    accent-color: #2ea44f;
+    transition: box-shadow 0.2s ease;
+}
+
+.complete-checkbox:hover {
+    box-shadow: 0 0 8px rgba(46, 164, 79, 0.4);
+}
+
+.complete-checkbox:focus {
+    box-shadow: 0 0 8px rgba(46, 164, 79, 0.6);
+    outline: none;
+}
+
+.task-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    flex-grow: 1;
+}
+
+/* Meta informações (data e prioridade) */
+.task-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.task-date {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.task-date::before {
+    content: "📅";
+    font-size: 0.9em;
+}
+
+.priority-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: box-shadow 0.2s ease;
+}
+
+.priority-badge:hover {
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+/* Descrição da Tarefa */
+.task-description {
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+    border-top: 1px dashed #eee;
+    border-bottom: 1px dashed #eee;
+}
+
+/* Rodapé (botões de ação) */
+.task-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.task-footer button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+}
+
+.edit-btn {
+    background-color: #e7f5ff;
+    color: #1971c2;
+}
+
+.edit-btn:hover {
+    background-color: #d0ebff;
+    box-shadow: 0 0 8px rgba(25, 113, 194, 0.4);
+}
+
+.edit-btn:focus {
+    box-shadow: 0 0 10px rgba(25, 113, 194, 0.6);
+    outline: none;
+}
+
+.delete-btn {
+    background-color: #fff5f5;
+    color: #e03131;
+}
+
+.delete-btn:hover {
+    background-color: #ffe3e3;
+    box-shadow: 0 0 8px rgba(224, 49, 49, 0.4);
+}
+
+.delete-btn:focus {
+    box-shadow: 0 0 10px rgba(224, 49, 49, 0.6);
+    outline: none;
+}
+
+/* Prioridades */
+.task-item.priority-low {
+    border-left: 4px solid #4dabf7; 
+}
+
+.task-item.priority-medium {
+    border-left: 4px solid #ffd43b;
+}
+
+.task-item.priority-high {
+    border-left: 4px solid #ff6b6b;
+}
+
+.priority-low .priority-badge {
+    background-color: #e7f5ff;
+    color: #1971c2;
+}
+
+.priority-medium .priority-badge {
+    background-color: #fff9db;
+    color: #e67700;
+}
+
+.priority-high .priority-badge {
+    background-color: #fff5f5;
+    color: #e03131;
+}
+
+/* Tarefa concluída */
+.task-item.completed {
+    opacity: 0.8;
+    background-color: #f8f9fa;
+}
+
+.task-item.completed .task-title {
+    text-decoration: line-through;
+    color: #868e96;
+}
+
+.task-item.completed .task-description {
+    color: #adb5bd;
 }
 
 /* === Dark Mode === */
-.dark-mode body {
+body.dark-mode {
     background-color: #121212;
     color: #ffffff;
 }
@@ -168,160 +366,80 @@ select:focus {
     border-bottom: 1px solid #444;
 }
 
-.dark-mode .container,
-.dark-mode footer,
-.dark-mode .task-controls {
-    color: #f1f1f1;
-}
-
-.dark-mode section,
-.dark-mode .task-controls {
+.dark-mode .task-controls,
+.dark-mode .task-list,
+.dark-mode .task-item {
     background-color: #1e1e1e;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.dark-mode .form-group label {
-    color: #c9d1d9;
+    border-color: #30363d;
 }
 
 .dark-mode input,
 .dark-mode textarea,
 .dark-mode select {
-    background-color: #1e1e1e;
+    background-color: #2d2d2d;
     border-color: #444;
     color: #fff;
+}
+
+.dark-mode input:hover,
+.dark-mode textarea:hover,
+.dark-mode select:hover {
+    border-color: #4db8ff;
+    box-shadow: 0 0 0 3px rgba(77, 184, 255, 0.3);
 }
 
 .dark-mode input:focus,
 .dark-mode textarea:focus,
 .dark-mode select:focus {
-    background-color: #2a2a2a;
-    border-color: #4db8ff;
-}
-
-.dark-mode footer p {
-    color: #c9d1d9;
+    border-color: white;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
 .dark-mode .primary-btn {
-    background-color: #2a8fd6;
+    background-color: #2c974b;
 }
 
 .dark-mode .primary-btn:hover {
-    background-color: #1a7fc6;
+    background-color: #22863a;
 }
 
-/* === Task List Styles === */
-.task-list {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
-    margin: 2rem auto;
-}
-
-.task-item {
-    background-color: #ffffff;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.task-item.completed {
-    background-color: #f0f0f0;
-    text-decoration: line-through;
-}
-
-.task-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-}
-
-.task-title {
-    font-weight: 600;
-    font-size: 1.2rem;
-    color: #333;
-}
-
-.task-meta {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.priority-badge {
-    background-color: #e0e0e0;
-    padding: 0.3rem 0.6rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    margin-left: 10px;
-}
-
-.task-description {
-    font-size: 1rem;
-    margin-top: 1rem;
-    color: #444;
-    line-height: 1.5;
-}
-
-.task-footer {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 1.5rem;
-}
-
-.edit-btn,
-.delete-btn {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    border: none;
-}
-
-.edit-btn {
-    background-color: #ffcc00;
-    color: #fff;
-}
-
-.delete-btn {
-    background-color: #ff4d4d;
-    color: #fff;
-}
-
-.edit-btn:hover {
-    background-color: #e6b800;
-}
-
-.delete-btn:hover {
-    background-color: #ff1a1a;
-}
-
-/* === Dark Mode Task List === */
-.dark-mode .task-item {
-    background-color: #2d2d2d;
-    color: #fff;
-}
-
-.dark-mode .task-item.completed {
-    background-color: #333;
-}
-
-.dark-mode .task-header .task-title {
-    color: #fff;
+.dark-mode .task-title {
+    color: #f8f9fa;
 }
 
 .dark-mode .task-description {
-    color: #ccc;
+    color: #adb5bd;
+    border-color: #444;
 }
 
-.dark-mode .priority-badge {
-    background-color: #444;
-    color: #fff;
+.dark-mode .task-meta {
+    color: #adb5bd;
+}
+
+.dark-mode .task-item.completed {
+    background-color: #2b2b2b;
+}
+
+.dark-mode .edit-btn {
+    background-color: #1a3d5c;
+    color: #74c0fc;
+}
+
+.dark-mode .delete-btn {
+    background-color: #5c1a1a;
+    color: #ff8787;
+}
+
+.dark-mode .task-item:hover,
+.dark-mode .task-item:focus-within {
+    border-color: #4db8ff;
+    box-shadow: 0 0 0 3px rgba(77, 184, 255, 0.3);
+}
+
+/* === Responsivo === */
+@media (max-width: 768px) {
+    .task-layout {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
 }

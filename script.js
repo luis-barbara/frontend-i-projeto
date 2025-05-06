@@ -58,12 +58,13 @@ const handleFormSubmit = async (event) => {
 
 // Função para criar nova tarefa
 const createNewTask = async (title, description, priority) => {
+    const dateInput = document.getElementById("taskDate").value;
     await createTask({
         title,
         description,
         priority,
         completed: false,
-        createdAt: new Date().toISOString()
+        createdAt: dateInput ? new Date(dateInput).toISOString() : new Date().toISOString()
     });
 };
 
@@ -101,33 +102,41 @@ const handleCompleteToggle = async (event) => {
 // Função para exibir tarefas na tela
 const displayTasks = (todolist) => {
     const taskListContainer = document.getElementById("task-list");
-    taskListContainer.innerHTML = "";  // Limpa a lista antes de adicionar novas tarefas
+    taskListContainer.innerHTML = "";  // Clear the list before adding new tasks
 
     todolist.forEach(task => {
+        // Use the correct property names based on your API response
+        const taskId = task.id;
+        const title = task.title || task.Title; // Handle both cases
+        const description = task.description || task.Description;
+        const priority = task.priority || task.Priority;
+        const completed = task.completed || task.Completed;
+        const date = task.createdAt || task.CreatedAt || task.Date;
+
         const taskItem = document.createElement("div");
-        taskItem.className = `task-item ${task.Completed ? 'completed' : ''} priority-${task.Priority}`;
+        taskItem.className = `task-item ${completed ? 'completed' : ''} priority-${priority.toLowerCase()}`;
 
         taskItem.innerHTML = `
             <div class="task-header">
-                <input type="checkbox" ${task.Completed ? 'checked' : ''} 
-                       data-id="${task.id}" class="complete-checkbox">
-                <span class="task-title">${task.Title}</span>
+                <input type="checkbox" ${completed ? 'checked' : ''} 
+                       data-id="${taskId}" class="complete-checkbox">
+                <span class="task-title">${title}</span>
             </div>
             <div class="task-meta">
-                <span class="task-date">${formatDate(task.Date)}</span>
-                <span class="priority-badge">${getPriorityLabel(task.Priority)}</span>
+                <span class="task-date">${formatDate(date)}</span>
+                <span class="priority-badge">${getPriorityLabel(priority)}</span>
             </div>
-            ${task.Description ? `<div class="task-description">${task.Description}</div>` : ''}
+            ${description ? `<div class="task-description">${description}</div>` : ''}
             <div class="task-footer">
-                <button data-id="${task.id}" class="edit-btn">Editar</button>
-                <button data-id="${task.id}" class="delete-btn">Remover</button>
+                <button data-id="${taskId}" class="edit-btn">Editar</button>
+                <button data-id="${taskId}" class="delete-btn">Remover</button>
             </div>
         `;
 
         taskListContainer.appendChild(taskItem);
     });
 
-    // Adiciona event listeners
+    // Add event listeners
     document.querySelectorAll('.complete-checkbox').forEach(checkbox => {
         checkbox.addEventListener('change', handleCompleteToggle);
     });
@@ -157,12 +166,18 @@ const handleDeleteClick = async (event) => {
     const taskId = event.target.getAttribute('data-id');
     
     try {
-        await deleteTask(taskId);
-        const tasks = await getTaskList();
-        displayTasks(tasks);
+        const task = await getTask(taskId);
+        currentEditingTaskId = task.id;
+        document.getElementById("taskTitle").value = task.title;
+        document.getElementById("taskDescription").value = task.description || "";
+        document.getElementById("prioritySelect").value = task.priority;
+        // If you want to use the date field:
+        if (task.createdAt) {
+            document.getElementById("taskDate").value = task.createdAt.split('T')[0];
+        }
     } catch (error) {
-        console.error("Erro ao excluir tarefa:", error);
-        alert("Erro ao excluir a tarefa. Tente novamente.");
+        console.error("Error loading task for editing:", error);
+        alert("Erro ao carregar tarefa para edição.");
     }
 };
 
@@ -172,12 +187,29 @@ const resetForm = () => {
     currentEditingTaskId = null;
 };
 
-const formatDate = (dateString) => {
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    return new Date(dateString).toLocaleDateString('pt-BR', options);
+const formatDate = (dateInput) => {
+    try {
+        // Handle different date formats from your API
+        let date;
+        if (typeof dateInput === 'number') {
+            date = new Date(dateInput * 1000); // Convert timestamp if needed
+        } else if (typeof dateInput === 'string') {
+            date = new Date(dateInput);
+        } else {
+            date = new Date();
+        }
+        
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        return date.toLocaleDateString('pt-BR', options);
+    } catch (error) {
+        console.error("Error formatting date:", error);
+        return "Data inválida";
+    }
 };
 
 const getPriorityLabel = (priority) => {
+    // Handle different priority formats from your API
+    const priorityValue = priority.toLowerCase();
     const labels = {
         low: '🔵 Baixa',
         medium: '🟡 Média',
