@@ -51,14 +51,22 @@
                 </form>
             </section>
     
-             <!-- Lista de Tarefas -->
+            <!-- Lista de Tarefas -->
             <section class="task-list" aria-labelledby="tasks-heading">
-                <h2 id="tasks-heading">Suas Tarefas</h2>
+                <h2 id="tasks-heading">Lista de Tarefas</h2>
+                <!-- Filtros de Tarefa -->
+                <ul class="task-filters nav nav-tabs" role="tablist" aria-label="Filtro de Tarefas">
+                    <li><button class="nav-link active" type="button" data-filter="all">Todas</button></li>
+                    <li><button class="nav-link" type="button" data-filter="active">Ativas</button></li>
+                    <li><button class="nav-link" type="button" data-filter="completed">Concluídas</button></li>
+                </ul>
+                <button id="markAllBtn" class="secondary-btn">
+                    <i class="fas fa-check-circle"></i> Marcar Todas
+                </button>
                 <ul id="task-list"></ul>
             </section>
         </div>
     </main>
-    
 
     <footer>
         <div class="container">
@@ -67,5 +75,33 @@
     </footer>
 
     <script type="module" src="script.js" defer></script>
+    
+    <!-- Modal de Edição de Tarefa -->
+    <div id="taskFormModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeTaskModal">&times;</span>
+            <h2 id="formTitle">Editar Tarefa</h2>
+            <form id="taskForm">
+                <label for="modalTaskTitle">Título</label>
+                <input type="text" id="modalTaskTitle" name="taskTitle" required />
+
+                <label for="modalTaskDescription">Descrição</label>
+                <textarea id="modalTaskDescription" name="taskDescription" required></textarea>
+
+                <label for="modalTaskPriority">Prioridade</label>
+                <select id="modalTaskPriority" name="taskPriority">
+                    <option value="low">Baixa</option>
+                    <option value="medium">Média</option>
+                    <option value="high">Alta</option>
+                </select>
+
+                <input type="hidden" id="taskId" name="taskId" /> 
+
+                <button type="submit">Salvar</button>
+                <button type="button" id="cancelTaskBtn">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
