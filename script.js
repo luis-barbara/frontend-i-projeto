@@ -515,32 +515,6 @@ const filterTasksByStatus = (tasks, filter) => {
     });
 };
 
-// Tema
-const initializeTheme = () => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        updateThemeIcon('sun');
-    }
-};
-
-const setupThemeToggle = () => {
-    const themeToggleBtn = document.getElementById("themeToggleBtn");
-    if (!themeToggleBtn) return;
-
-    themeToggleBtn.addEventListener("click", () => {
-        const isDark = document.body.classList.toggle('dark-mode');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        updateThemeIcon(isDark ? 'sun' : 'moon');
-    });
-};
-
-const updateThemeIcon = (icon) => {
-    const themeToggleBtn = document.getElementById("themeToggleBtn");
-    if (themeToggleBtn) {
-        themeToggleBtn.innerHTML = `<i class="fa-solid fa-${icon}"></i>`;
-    }
-};
 
 // Inicialização da aplicação
 document.addEventListener("DOMContentLoaded", async () => {
@@ -550,8 +524,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         
         todolist = await getTaskList();  
         displayTasks(todolist);
-        setupThemeToggle();
-        initializeTheme();
         setupFilters();
         setupMarkAllButton();
         
@@ -561,3 +533,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         alert("Erro ao carregar tarefas. Por favor, recarregue a página.");
     }
 });
+
+// Intl.DateTimeFormat: API js
+const date = new Date();
+const formatter = new Intl.DateTimeFormat(undefined, {
+  dateStyle: 'medium',
+  timeStyle: 'short'
+});
+document.getElementById('currentDate').textContent = formatter.format(date);
+
