@@ -8,6 +8,7 @@
     <title>TODO app</title>
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
     <header>
@@ -42,9 +43,9 @@
                     <div class="form-group">
                         <label for="prioritySelect">Prioridade</label>
                         <select id="prioritySelect">
-                            <option value="low">🔵 Baixa</option>
-                            <option value="medium">🟡 Média</option>
-                            <option value="high">🔴 Alta</option>
+                            <option value="baixa">🔵 Baixa</option>
+                            <option value="média">🟡 Média</option>
+                            <option value="alta">🔴 Alta</option>
                         </select>
                     </div>
                     <button type="submit" class="primary-btn">Adicionar Tarefa</button>
@@ -80,28 +81,40 @@
     <div id="taskFormModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" id="closeTaskModal">&times;</span>
-            <h2 id="formTitle">Editar Tarefa</h2>
+            <h2>Editar Tarefa</h2>
             <form id="taskForm">
-                <label for="modalTaskTitle">Título</label>
-                <input type="text" id="modalTaskTitle" name="taskTitle" required />
-
-                <label for="modalTaskDescription">Descrição</label>
-                <textarea id="modalTaskDescription" name="taskDescription" required></textarea>
-
-                <label for="modalTaskPriority">Prioridade</label>
-                <select id="modalTaskPriority" name="taskPriority">
-                    <option value="low">Baixa</option>
-                    <option value="medium">Média</option>
-                    <option value="high">Alta</option>
-                </select>
-
-                <input type="hidden" id="taskId" name="taskId" /> 
-
-                <button type="submit">Salvar</button>
-                <button type="button" id="cancelTaskBtn">Cancelar</button>
+                <!-- Data -->
+                <div class="form-group">
+                    <label for="modalTaskDate">Data</label>
+                    <input type="date" id="modalTaskDate">
+                </div>
+                <!-- Título -->
+                <div class="form-group">
+                    <label for="modalTaskTitle">Título</label>
+                    <input type="text" id="modalTaskTitle" required>
+                </div>
+                <!-- Descrição -->
+                <div class="form-group">
+                    <label for="modalTaskDescription">Descrição</label>
+                    <textarea id="modalTaskDescription"></textarea>
+                </div>
+                <!-- Prioridade -->
+                <div class="form-group">
+                    <label for="modalTaskPriority">Prioridade</label>
+                    <select id="modalTaskPriority">
+                        <option value="baixa">🔵 Baixa</option>
+                        <option value="média">🟡 Média</option>
+                        <option value="alta">🔴 Alta</option>
+                    </select>
+                </div>
+                <!-- Botões -->
+                <div class="form-actions">
+                    <button type="button" id="cancelTaskBtn" class="secondary-btn">Cancelar</button>
+                    <button type="submit" class="primary-btn">Gravar</button>
+                </div>
             </form>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

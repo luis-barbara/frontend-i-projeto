@@ -66,6 +66,7 @@ main {
     margin: 0 auto;
     padding: 32px;
     align-items: start;
+    box-sizing: border-box; 
 }
 
 /* === Containers (cards) === */
@@ -77,6 +78,7 @@ main {
     border: 1px solid #e1e4e8;
     transition: all 0.3s ease;
     width: 100%;
+    box-sizing: border-box; 
 }
 
 /* === Títulos === */
@@ -86,6 +88,7 @@ main {
     margin-bottom: 20px;
     color: #1a1a1a;
     font-weight: 600;
+    transition: font-size 0.3s ease; 
 }
 
 /* === Formulário === */
@@ -470,131 +473,6 @@ footer p {
 }
 
 
-/* Modal Styles - Atualizado para combinar com seu tema */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    background-color: var(--bg-color, #ffffff);
-    margin: 10% auto;
-    padding: 2rem;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    animation: modalFadeIn 0.3s ease-out;
-    border: 1px solid var(--border-color, #e1e4e8);
-}
-
-@keyframes modalFadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--text-color, #1a1a1a);
-    cursor: pointer;
-    transition: color 0.2s ease;
-    background: none;
-    border: none;
-    padding: 0.5rem;
-}
-
-.close-btn:hover {
-    color: var(--primary-color, #4CAF50);
-}
-
-#taskForm {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-#taskForm label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--text-color, #1a1a1a);
-    font-size: 0.95rem;
-}
-
-#taskForm input,
-#taskForm textarea,
-#taskForm select {
-    padding: 0.75rem;
-    border-radius: 8px;
-    border: 1px solid var(--border-color, #ccc);
-    background-color: var(--input-bg, #ffffff);
-    color: var(--input-text, #1a1a1a);
-    font-size: 1rem;
-    width: 100%;
-    transition: all 0.3s ease;
-}
-
-#taskForm textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-#taskForm input:focus,
-#taskForm textarea:focus,
-#taskForm select:focus {
-    border-color: var(--primary-color, #4CAF50);
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
-    outline: none;
-}
-
-.form-actions {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-#taskForm button[type="submit"] {
-    background-color: var(--primary-color, #4CAF50);
-    color: white;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    flex: 1;
-    transition: all 0.3s ease;
-}
-
-#taskForm button[type="submit"]:hover {
-    background-color: var(--primary-hover, #45a049);
-}
-
-#taskForm button[type="button"] {
-    background-color: var(--secondary-bg, #f0f0f0);
-    color: var(--secondary-text, #333);
-    padding: 0.75rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    flex: 1;
-    transition: all 0.3s ease;
-}
-
-#taskForm button[type="button"]:hover {
-    background-color: var(--secondary-hover, #e0e0e0);
-}
-
 
 
 /* === Dark Mode === */
@@ -707,10 +585,331 @@ body.dark-mode {
 }
 
 
+
+
+
+
+/* === Modal === */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+    z-index: 1000;
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombras mais suaves */
+    border: none;
+}
+
+.modal h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+}
+
+.close-btn:hover {
+    color: #4CAF50;
+}
+
+.modal .form-group {
+    margin-bottom: 20px; /* Consistente com o estilo do formulário */
+    display: flex;
+    flex-direction: column;
+}
+
+.modal label {
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 16px;
+}
+
+.modal input[type="text"],
+.modal input[type="date"],
+.modal textarea,
+.modal select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    color: #111;
+    font-size: 16px;
+    width: 100%;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.modal input:hover,
+.modal textarea:hover,
+.modal select:hover {
+    border-color: #4db8ff;
+    box-shadow: 0 0 0 3px rgba(77, 184, 255, 0.3);
+}
+
+.modal input:focus,
+.modal textarea:focus,
+.modal select:focus {
+    border-color: #4db8ff;
+    box-shadow: 0 0 0 3px rgba(77, 184, 255, 0.3);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.modal .primary-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;  
+    font-weight: 600;
+    display: flex;    
+    align-items: center;  
+    justify-content: center; 
+    gap: 8px;     
+    width: 100%;       
+    height: 48px;      
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.modal .primary-btn:hover {
+    background: #45a049;
+    box-shadow: 0 0 0 3px rgba(46, 164, 79, 0.4);
+}
+
+.modal .secondary-btn {
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 48px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.modal .secondary-btn:hover {
+    background-color: #e0e0e0;
+    box-shadow: 0 0 0 3px rgba(208, 208, 208, 0.4);
+}
+
+/* Dark Mode Styles for Modal */
+.dark-mode .modal-content {
+    background-color: #1e1e1e;
+    border-color: #444;
+}
+
+.dark-mode .modal h2 {
+    color: #f8f9fa;
+}
+
+.dark-mode .modal label {
+    color: #adb5bd;
+}
+
+.dark-mode .modal input[type="text"],
+.dark-mode .modal input[type="date"],
+.dark-mode .modal textarea,
+.dark-mode .modal select {
+    background-color: #2d2d2d;
+    border-color: #444;
+    color: #f0f0f0;
+}
+
+.dark-mode .modal .secondary-btn {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.dark-mode .modal .secondary-btn:hover {
+    background-color: #444;
+}
+
+.dark-mode .close-btn {
+    color: #f0f0f0;
+}
+
+.dark-mode .close-btn:hover {
+    color: #4CAF50;
+}
+
+/* Animations */
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* === Responsividade === */
 /* === Responsividade === */
 @media (max-width: 768px) {
     .task-layout {
         grid-template-columns: 1fr;
-        padding: 16px;
+        width: 100%;
+        max-width: 100%; /* Alterado para ocupar toda largura */
+        margin: 0 auto;
+        padding: 20px 15px; /* Padding mais generoso */
+        gap: 20px;
+    }
+
+    .task-controls,
+    .task-list {
+        padding: 20px;
+    }
+
+    .modal-content {
+        margin: 10vh auto;
+        width: 90%;
+        max-width: 100%;
+        padding: 1.2rem;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal .primary-btn,
+    .modal .secondary-btn {
+        width: 100%;
+        min-height: 42px;
     }
 }
+
+/* Ajustes específicos para iPhone SE e telas pequenas */
+@media (max-width: 375px) {
+    .task-layout {
+        padding: 15px 10px;
+    }
+    
+    .task-controls,
+    .task-list {
+        padding: 16px;
+    }
+    
+    .navbar {
+        padding: 10px 12px;
+    }
+    
+    .navbar h1 {
+        font-size: 1.1rem;
+    }
+    
+    .primary-btn, 
+    .secondary-btn {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    .modal-content {
+        margin: 5vh auto;
+        padding: 1rem;
+        width: 95%;
+    }
+}
+
+/* Ajustes extras para telas muito pequenas (menos de 320px) */
+@media (max-width: 320px) {
+    .task-layout {
+        padding: 10px 8px;
+    }
+    
+    .task-controls,
+    .task-list {
+        padding: 14px;
+    }
+    
+    .modal-content {
+        padding: 0.8rem;
+    }
+    
+    .form-group label {
+        font-size: 15px;
+    }
+}
+
+
+/* botoes de delete message */
+
+/* Botão base */
+.btn {
+    display: inline-block;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    font-size: 1rem;
+    line-height: 1.25;
+    white-space: nowrap;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    margin: 0 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    transition: 0.15s ease-in-out;
+  }
+  
+  /* Botão verde (confirmar) */
+  .btn-success {
+    color: white;
+    background-color: rgb(40, 167, 69);
+    border-color: rgb(40, 167, 69);
+  }
+  
+  /* Botão vermelho (cancelar) */
+  .btn-danger {
+    color: white;
+    background-color: rgb(220, 53, 69);
+    border-color: rgb(220, 53, 69);
+  }
+  
+  /* Hover para todos os botões */
+  .btn:hover {
+    opacity: 0.85;
+    cursor: pointer;
+  }
