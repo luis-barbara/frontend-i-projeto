@@ -179,7 +179,7 @@ const updateExistingTask = async (id, title, description, priority, date) => {
     const updateData = {
         Title: title.trim(),
         Priority: `Priority ${priorityMap[priority.toLowerCase()] || 1}`,
-        Completed: task.Completed || false,
+        completed: task.completed || false,
         Date: updateDate
     };
     

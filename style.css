@@ -7,7 +7,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #f9f9f9;
+    background-color: #e8e8e8;
     color: #1a1a1a;
     padding-top: 80px;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -128,7 +128,7 @@ select {
     border-radius: 8px;
     border: 1px solid #ccc;
     background-color: #ffffff;
-    color: #111;
+    color: #1a1a1a;
     font-size: 16px;
     width: 100%;
     transition: border 0.2s, box-shadow 0.2s;
@@ -487,7 +487,7 @@ a {
 
 /* === Dark Mode === */
 body.dark-mode {
-    background-color: #121212;
+    background-color: #1a1a1a;
     color: #f0f0f0;
 }
 
@@ -566,7 +566,7 @@ body.dark-mode {
 }
 
 .dark-mode .form-group label {
-    color: #555;
+    color:  #767575;
     
 }
 
@@ -878,6 +878,15 @@ body.dark-mode {
     background-color: #2d2d2d; 
     border-color: #444;
 }
+
+.dark-mode input[type="text"],
+.dark-mode [type="date"],
+.dark-mode textarea,
+.dark-mode select {
+    color: white;
+}
+
+
 
 /* Animations */
 @keyframes modalFadeIn {
