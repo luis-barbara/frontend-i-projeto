@@ -903,15 +903,15 @@ body.dark-mode {
     to { transform: translateY(0); opacity: 1; }
 }
 
-/* === Responsividade === */
+
 /* === Responsividade === */
 @media (max-width: 768px) {
     .task-layout {
         grid-template-columns: 1fr;
         width: 100%;
-        max-width: 100%; /* Alterado para ocupar toda largura */
+        max-width: 100%; 
         margin: 0 auto;
-        padding: 20px 15px; /* Padding mais generoso */
+        padding: 20px 15px; 
         gap: 20px;
     }
 
@@ -937,11 +937,20 @@ body.dark-mode {
         width: 100%;
         min-height: 42px;
     }
-    
+
     .formatted-date {
-        font-size: 14px;
+        font-size: 16px;  
+        padding: 6px;
     }
 }
+
+@media (max-width: 450px) {
+    .formatted-date {
+        font-size: 12px;
+    }
+}
+
+
 
 /* Ajustes específicos para iPhone SE e telas pequenas */
 @media (max-width: 375px) {
@@ -975,7 +984,7 @@ body.dark-mode {
     }
 
     .formatted-date {
-        font-size: 12px;
+        font-size: 10px;
     }
 }
 
@@ -996,6 +1005,10 @@ body.dark-mode {
     
     .form-group label {
         font-size: 15px;
+    }
+
+    .formatted-date {
+        font-size: 10px;  
     }
 }
 
