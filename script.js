@@ -25,7 +25,7 @@ const normalizeTaskData = (task) => {
         title: task.Title || '', 
         description: task.Description || null, 
         priority: priority,
-        completed: task.Completed || false,
+        completed: task.completed || false,
         createdAt: createdAt.toISOString()
     };
 };
@@ -279,7 +279,7 @@ const handleMarkAllToggle = async () => {
     
     try {
         // Verifica se todas já estão completas
-        const allCompleted = todolist.every(task => task.Completed);
+        const allCompleted = todolist.every(task => task.completed);
         
         // Mostrar estado de carregamento
         markAllBtn.disabled = true;
@@ -289,7 +289,7 @@ const handleMarkAllToggle = async () => {
         const updatePromises = todolist.map(task => {
             return updateTask(task.id, {
                 ...task,
-                Completed: !allCompleted // Inverte o estado atual
+                completed: !allCompleted // Inverte o estado atual
             });
         });
 
@@ -299,7 +299,7 @@ const handleMarkAllToggle = async () => {
         // Atualizar a lista local
         todolist = todolist.map(task => ({
             ...task,
-            Completed: !allCompleted
+            completed: !allCompleted
         }));
 
         // Atualizar a exibição
@@ -334,21 +334,36 @@ const displayTasks = (tasks) => {
         listItem.innerHTML = `
             <div class="task-content">
                 <div class="task-header">
-                    <input type="checkbox" ${completed ? 'checked' : ''} 
-                           data-id="${id}" class="complete-checkbox">
-                    <span class="task-title">${title}</span>
+                    <input type="checkbox" ${completed ? 'checked' : ''}
+                        id="task-${id}-complete"
+                        data-id="${id}" 
+                        class="complete-checkbox">
+                    <label for="task-${id}-complete" class="task-title-container">
+                        <span class="task-title">${title}</span>
+                        <span class="visually-hidden"> - ${completed ? 'Concluída' : 'Pendente'}</span>
+                    </label>
                 </div>
                 <div class="task-meta">
-                    <span class="task-date">${formatDate(createdAt)}</span>
-                    <span class="priority-badge">${getPriorityLabel(priority)}</span>
+                    <span class="task-date">
+                        <span class="visually-hidden">Data de criação: </span>
+                        ${formatDate(createdAt)}
+                    </span>
+                    <span class="priority-badge" aria-label="Prioridade ${priority}">
+                        ${getPriorityLabel(priority)}
+                    </span>
                 </div>
-                ${description ? `<div class="task-description">${description}</div>` : ''}
+                ${description ? `
+                <div class="task-description" aria-label="Descrição da tarefa">
+                    ${description}
+                </div>` : ''}
                 <div class="task-footer">
-                    <button data-id="${id}" class="edit-btn">
-                        <i class="fas fa-edit"></i> Editar
+                    <button data-id="${id}" class="edit-btn" aria-label="Editar tarefa ${title}">
+                        <i class="fas fa-edit" aria-hidden="true"></i> 
+                        <span class="btn-label">Editar</span>
                     </button>
-                    <button data-id="${id}" class="delete-btn">
-                        <i class="fas fa-trash-alt"></i> Remover
+                    <button data-id="${id}" class="delete-btn" aria-label="Remover tarefa ${title}">
+                        <i class="fas fa-trash-alt" aria-hidden="true"></i> 
+                        <span class="btn-label">Remover</span>
                     </button>
                 </div>
             </div>
@@ -542,3 +557,48 @@ const formatter = new Intl.DateTimeFormat(undefined, {
 });
 document.getElementById('currentDate').textContent = formatter.format(date);
 
+
+
+
+// API Canvas
+document.addEventListener("DOMContentLoaded", function() {
+    // Função para desenhar as bolas coloridas no canvas
+    function drawPriorityBalls() {
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+    
+        // Definir as propriedades dos círculos
+        const radius = 10; 
+        const spacing = 15;  
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+    
+        // Calcular a posição X para centralizar o grupo de bolas
+        const totalWidth = (3 * radius * 2) + (2 * spacing);
+        const startX = (canvasWidth - totalWidth) / 2 + radius; 
+        const startY = canvasHeight / 2;  
+    
+        // Desenhar a bola azul (Baixa prioridade)
+        ctx.beginPath();
+        ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = "#2196F3"; 
+        ctx.fill();
+        ctx.stroke();
+    
+        // Desenhar a bola amarela (Média prioridade)
+        ctx.beginPath();
+        ctx.arc(startX + radius * 2 + spacing, startY, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = "#FFEB3B"; 
+        ctx.fill();
+        ctx.stroke();
+    
+        // Desenhar a bola vermelha (Alta prioridade)
+        ctx.beginPath();
+        ctx.arc(startX + (radius * 2 + spacing) * 2, startY, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = "#F44336";
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    drawPriorityBalls(); 
+});

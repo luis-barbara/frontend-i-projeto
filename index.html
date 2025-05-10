@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Todo List Application" />
-    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="icon" type="image/png" href="favicon.jpg" />
     <title>TODO app</title>
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2196F3">
 </head>
 <body>
     <header>
@@ -35,7 +37,7 @@
                     </div>
                     <div class="form-group">
                         <label for="taskTitle" class="visually-hidden">Título da Tarefa</label>
-                        <input type="text" id="taskTitle" placeholder="Título da tarefa..." aria-required="true" aria-label="Título da Tarefa" />
+                        <input type="text" id="taskTitle" aria-labelledby="taskTitleLabel" placeholder="Título da tarefa...">
                     </div>
                     <div class="form-group">
                         <label for="taskDescription" class="visually-hidden">Descrição</label>
@@ -57,17 +59,24 @@
             <section class="task-list" aria-labelledby="tasks-heading">
                 <h2 id="tasks-heading">Lista de Tarefas</h2>
                 <!-- Filtros de Tarefa -->
-                <ul class="task-filters nav nav-tabs" role="tablist" aria-label="Filtro de Tarefas">
-                    <li><button class="nav-link active" role="tab" type="button" data-filter="all">Todas</button></li>
-                    <li><button class="nav-link" role="tab" type="button" data-filter="active">Ativas</button></li>
-                    <li><button class="nav-link" role="tab" type="button" data-filter="completed">Concluídas</button></li>
-                </ul>
+                <div class="task-filters nav nav-tabs" role="tablist" aria-label="Filtro de Tarefas">
+                    <div role="presentation">
+                      <button class="nav-link active" role="tab" id="tab-all" aria-selected="true" aria-controls="panel-all" tabindex="0"data-filter="all">Todas</button>
+                    </div>
+                    <div role="presentation">
+                      <button class="nav-link" role="tab" id="tab-active" aria-selected="false" aria-controls="panel-active" tabindex="-1"data-filter="active">Ativas</button>
+                    </div>
+                    <div role="presentation">
+                      <button class="nav-link" role="tab" id="tab-completed" aria-selected="false" aria-controls="panel-completed" tabindex="-1"data-filter="completed">Concluídas</button>
+                    </div>
+                  </div>
                 <button id="markAllBtn" class="secondary-btn">
                     <i class="fas fa-check-circle"></i> Marcar Todas
                 </button>
                 <ul id="task-list"></ul>
             </section>
         </div>
+        <canvas id="myCanvas" width="200" height="30"></canvas>
     </main>
 
     <footer>
@@ -118,5 +127,14 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="./theme_toggle.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+          window.addEventListener("load", () => {
+            navigator.serviceWorker.register("/sw.js")
+              .then(reg => console.log("Service Worker registado!"))
+              .catch(err => console.log("Erro: ", err));
+          });
+        }
+      </script>
 </body>
 </html>
