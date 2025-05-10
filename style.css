@@ -937,6 +937,10 @@ body.dark-mode {
         width: 100%;
         min-height: 42px;
     }
+    
+    .formatted-date {
+        font-size: 14px;
+    }
 }
 
 /* Ajustes específicos para iPhone SE e telas pequenas */
@@ -968,6 +972,10 @@ body.dark-mode {
         margin: 5vh auto;
         padding: 1rem;
         width: 95%;
+    }
+
+    .formatted-date {
+        font-size: 12px;
     }
 }
 
