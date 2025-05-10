@@ -4,7 +4,8 @@ const ASSETS = [
   "./index.html",
   "./style.css",
   "./script.js",
-  "./favicon.jpg",
+  "./favicon.jpg",  
+  "./pwa_logo.svg"  
 ];
 
 // Instala o Service Worker e armazena em cache os recursos essenciais
@@ -20,5 +21,22 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((response) => response || fetch(event.request))
+  );
+});
+
+// Atualização do cache e limpeza de caches antigos quando o service worker for ativado
+self.addEventListener("activate", (event) => {
+  const cacheWhitelist = [CACHE_NAME];
+
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (!cacheWhitelist.includes(cacheName)) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
   );
 });
