@@ -562,7 +562,7 @@ document.getElementById('currentDate').textContent = formatter.format(date);
 
 // API Canvas
 document.addEventListener("DOMContentLoaded", function() {
-    // Função para desenhar as bolas coloridas no canvas
+    // Função para desenhar
     function drawPriorityBalls() {
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
@@ -578,21 +578,21 @@ document.addEventListener("DOMContentLoaded", function() {
         const startX = (canvasWidth - totalWidth) / 2 + radius; 
         const startY = canvasHeight / 2;  
     
-        // Desenhar a bola azul (Baixa prioridade)
+        // Bola azul (Baixa prioridade)
         ctx.beginPath();
         ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
         ctx.fillStyle = "#2196F3"; 
         ctx.fill();
         ctx.stroke();
     
-        // Desenhar a bola amarela (Média prioridade)
+        // Bola amarela (Média prioridade)
         ctx.beginPath();
         ctx.arc(startX + radius * 2 + spacing, startY, radius, 0, 2 * Math.PI);
         ctx.fillStyle = "#FFEB3B"; 
         ctx.fill();
         ctx.stroke();
     
-        // Desenhar a bola vermelha (Alta prioridade)
+        // Bola vermelha (Alta prioridade)
         ctx.beginPath();
         ctx.arc(startX + (radius * 2 + spacing) * 2, startY, radius, 0, 2 * Math.PI);
         ctx.fillStyle = "#F44336";
